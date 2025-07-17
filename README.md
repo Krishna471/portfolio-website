@@ -48,13 +48,10 @@ portfolio-website/
 ### 🔙 Backend
 - Python
 - Flask
-- Jinja2 Templating
 
-### ⚙️ Tools & Deployment
+### ⚙️ Tools Used
 - Git & GitHub
 - VS Code
-- Render (for Python backend)
-- Vercel/Netlify (for static version)
 
 ## 📦 Python Dependencies
 Make sure you have Python installed (preferably 3.10+). These libraries are required:
