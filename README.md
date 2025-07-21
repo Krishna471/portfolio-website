@@ -64,24 +64,30 @@ Make sure you have Python installed (preferably 3.10+). These libraries are requ
 
 🚀 How to Run Locally
 1. Clone the repository
-    ``` git clone https://github.com/Krishna471/portfolio-website.git ```
-    ``` cd portfolio-website ```
+
+   - ``` git clone https://github.com/Krishna471/portfolio-website.git ```
+   -  ``` cd portfolio-website ```
      
 2. Create a virtual environment
-    ``` python -m venv venv ```
+   
+    - ``` python -m venv venv ```
      
 3. Activate the virual environment
-    ``` venv\Scripts\activate ```       # On Windows
-    ``` source venv/bin/activate ```    # On Mac/Linux
+   
+    - ``` venv\Scripts\activate ```       # On Windows
+    - ``` source venv/bin/activate ```    # On Mac/Linux
      
 4. Install flask
-    ``` pip install flask ```
+ 
+   - ``` pip install flask ```
      
 5. Run the Flask app
-    ``` python app.py ```
+ 
+   - ``` python app.py ```
      
 6. Visit your browser
-   ``` http://127.0.0.1:5000/ ```
+   
+   - ``` http://127.0.0.1:5000/ ```
      
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
