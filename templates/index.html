@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Krishna Arora | Portfolio</title>
+  <script>
+  // Set theme class early before page renders
+  (function() {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.body?.classList?.remove("light");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.body?.classList?.add("light");
+    }
+  })();
+</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html {
@@ -24,83 +37,161 @@
   .nav-link.active::after {
     width: 100%;
   }
+  :root {
+      --bg-light: #ffffff;
+      --text-light: #000000;
+      --section-light: #f9fafb;
 
+      --bg-dark: #0f172a;
+      --text-dark: #f1f5f9;
+      --section-dark: #1e293b;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    section {
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light section {
+      background-color: var(--section-light);
+      color: var(--text-light);
+    }
+
+    body:not(.light) section {
+      background-color: var(--section-dark);
+      color: var(--text-dark);
+    }
+
+    footer {
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light footer {
+      background-color: var(--section-light);
+      color: var(--text-light);
+    }
+
+    body:not(.light) footer {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    body.light #toggleMode {
+    background-color: #d1d5db; /* light gray */
+    color: #000000;
+    }
+
+  /* Dark mode styles for toggle button */
+    body:not(.light) #toggleMode {
+      background-color: #1e293b; /* dark gray */
+      color: #ffffff;
+    }
 </style>
+<script>
+    tailwind = {
+      config: {
+        darkMode: 'class'
+      }
+    };
+  </script>
 </head>
 
-<body class="bg-gray-100 text-gray-800 font-sans scroll-smooth flex flex-col min-h-screen">
+<body class="font-sans scroll-smooth flex flex-col min-h-screen transition-colors duration-300">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 z-50 bg-white shadow-md">
+<nav class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md transition-colors duration-500">
   <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
 
-  <!-- Left: Name -->
-  <div class="flex items-center gap-2">
-    <span class="text-xl font-bold text-blue-600">Krishna Arora |</span>
-    <span id="typed-text" class="text-blue-600 text-base font-semibold mt-2.5"></span>
-  </div>
+    <!-- Left: Name -->
+    <div class="flex items-center gap-2">
+      <span class="text-xl font-bold text-blue-600 dark:text-blue-400">Krishna Arora |</span>
+      <span id="typed-text" class="text-blue-600 dark:text-blue-400 text-base font-semibold mt-2.5"></span>
+    </div>
+
     <!-- Right: Navigation + Resume Button -->
-    <div class="flex-1 flex justify-end items-center space-x-10 ">
-    <ul class="flex space-x-6 text-sm md:text-base">
-    <li><a href="#about" data-section="about" class="nav-link relative text-gray-700 transition">About</a></li>
-    <li><a href="#projects" data-section="projects" class="nav-link relative text-gray-700 transition">Projects</a></li>
-    <li><a href="#certifications" data-section="certifications" class="nav-link relative text-gray-700 transition">Certifications</a></li>
-    <li><a href="#skills" data-section="skills" class="nav-link relative text-gray-700 transition">Skills</a></li>
-    <li><a href="#education" data-section="education" class="nav-link relative text-gray-700 transition">Education</a></li>
-    </ul>
+    <div class="flex-1 flex justify-end items-center space-x-10">
+      <ul class="flex space-x-6 text-sm md:text-base">
+        <li><a href="#about" data-section="about" class="nav-link relative text-gray-700 dark:text-gray-300 transition">About</a></li>
+        <li><a href="#projects" data-section="projects" class="nav-link relative text-gray-700 dark:text-gray-300 transition">Projects</a></li>
+        <li><a href="#certifications" data-section="certifications" class="nav-link relative text-gray-700 dark:text-gray-300 transition">Certifications</a></li>
+        <li><a href="#skills" data-section="skills" class="nav-link relative text-gray-700 dark:text-gray-300 transition">Skills</a></li>
+        <li><a href="#education" data-section="education" class="nav-link relative text-gray-700 dark:text-gray-300 transition">Education</a></li>
+      </ul>
 
       <!-- Resume Button -->
       <a href="{{ url_for('static', filename='Krishna Arora CV.pdf') }}"
          download
-         class=" bg-blue-600 text-white px-5 py-2 rounded-none shadow hover:bg-blue-700 transition duration-300 hover:scale-105 text-sm md:text-base">
+         class="bg-blue-600 text-white px-5 py-2 rounded-none shadow hover:bg-blue-700 transition duration-300 hover:scale-105 text-sm md:text-base">
         Download Resume
       </a>
     </div>
   </div>
+
+  <!-- Toggle button -->
+  <button id="toggleMode"
+    class="fixed top-4 right-4 z-50 bg-gray-300 dark:bg-gray-800 text-black dark:text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 flex items-center gap-2">
+    <span id="modeIcon" class="text-lg">🌙</span>
+    <span class="hidden sm:inline">Toggle Mode</span>
+  </button>
 </nav>
 
-  <!-- Fullscreen scroll container -->
+
+<!-- Fullscreen scroll container -->
 <main class="snap-y snap-mandatory flex-grow">
 
-    <!-- Home Section -->
-<section id="home" class="snap-start min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-blue-100 to-white px-6 pt-32 pb-20 text-center md:text-left">
-  <!-- Text Section -->
-  <div class="max-w-xl">
-    <h1 class="text-5xl font-bold text-blue-600 mb-4">Welcome to My Portfolio</h1>
-    <p class="text-gray-700 text-lg mb-6">
-      Hi, I'm Krishna Arora — a passionate full-stack developer and data science enthusiast.
-      Explore my journey, projects, and the skills I've built.
-    </p>
-    <a href="#projects" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">
-      View Projects
-    </a>
-  </div>
+  <!-- Home Section -->
+  <section id="home"
+    class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white snap-start min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-blue-100 to-white dark:from-gray-800 dark:to-gray-900 px-6 pt-32 pb-20 text-center md:text-left transition-colors duration-500">
+    
+    <!-- Text Section -->
+    <div class="max-w-xl">
+      <h1 class="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-4">Welcome to My Portfolio</h1>
+      <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+        Hi, I'm Krishna Arora — a passionate full-stack developer and data science enthusiast.
+        Explore my journey, projects, and the skills I've built.
+      </p>
+      <a href="#projects"
+        class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 dark:hover:bg-blue-500 transition">
+        View Projects
+      </a>
+    </div>
 
-  <!-- Lottie Animation -->
-<div class="mt-10 md:mt-0 md:ml-12 w-72 h-72">
-  <lottie-player 
-    src="https://assets9.lottiefiles.com/packages/lf20_tno6cg2w.json"  
-    background="transparent"  
-    speed="1"  
-    loop  
-    autoplay  
-    style="width: 100%; height: 100%;">
-  </lottie-player>
-</div>
-</section>
+    <!-- Lottie Animation -->
+    <div class=" md:mt-0 md:ml-12 w-72 h-72">
+      <lottie-player
+        src="https://assets9.lottiefiles.com/packages/lf20_tno6cg2w.json"
+        background="transparent"
+        speed="1"
+        loop
+        autoplay
+        style="width: 100%; height: 100%;">
+      </lottie-player>
+    </div>
+  </section>
+  <hr>
+</main>
 
     
     <!-- About Section -->
-    <section id="about" class="snap-start min-h-screen flex flex-col justify-center px-6 bg-white">
-      <h2 class="text-4xl font-bold text-blue-500 text-center mb-20">About Me</h2>
+    <section id="about" class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white snap-start min-h-screen flex flex-col justify-center px-6 bg-white">
+      <h2 class=" text-4xl font-bold text-blue-500 text-center mb-20">About Me</h2>
 
       <!-- Content: Flexbox layout -->
       <div class="flex flex-col md:flex-row items-center justify-between max-w-5xl mx-auto gap-10">
 
         <!-- Left: Text -->
         <div class="md:w-1/2 text-center md:text-left">
-          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Hello! I'm Krishna Arora</h3>
-          <p class="text-gray-700 leading-relaxed text-lg">
+          <h3 class="text-2xl font-semibold dark:text-white text-gray-800 mb-4">Hello! I'm Krishna Arora</h3>
+          <p class="text-gray-700 leading-relaxed dark:text-white text-lg">
             A final-year B.Tech CSE student passionate about 
             <span class="text-blue-600 font-medium">Full Stack Development</span> and 
             <span class="text-blue-600 font-medium">Data Science</span>.
@@ -117,79 +208,83 @@
         </div>
 
         <!-- Right: Image -->
-        <div class="md:w-1/2 flex justify-center">
-          <img src="{{ url_for('static', filename='images/about/krishna image.jpg') }}" alt="Krishna Arora" class="w-72 h-72 rounded-full object-cover shadow-md">
+        <div class="transition md:w-1/2 flex justify-center">
+          <img src="{{ url_for('static', filename='images/about/krishna image.jpg') }}" alt="Krishna Arora" class="hover:scale-110 w-72 h-72 rounded-full object-cover shadow-md cursor-pointer" onclick="openFullScreen(this.src)">
         </div>
 
       </div>
     </section>
+    <hr>
 
 
     <!-- Projects Section -->
 
 <section id="projects" class="scroll-mt-10 snap-start min-h-screen flex flex-col justify-center items-center px-6 bg-gray-50 py-16">
   <h2 class="text-4xl font-bold text-blue-500 mt-0 mb-8 text-center">Projects</h2>
-  <p class="text-gray-700 max-w-3xl mb-16 text-center">
+  <p class="text-gray-700 max-w-3xl mb-16 dark:text-white text-center">
     This section showcases my data science and web development projects where I applied machine learning, data analytics, and frontend technologies.
   </p>
 
   <!-- Container for all projects -->
-  <div class="flex flex-col space-y-12 max-w-5xl w-full">
+  <a class="flex flex-col space-y-12 max-w-5xl w-full">
 
     <!-- Project 1: Netflix Dashboard (Image Left) -->
-    
-    <div class=" h-full bg-gray-50 shadow-md rounded-lg p-6 max-w-4xl w-full text-left border-l-4 border-blue-400 flex flex-col md:flex-row items-center gap-6">
+    <a href="https://github.com/Krishna471" target="_main" class="block mb-12">
+    <div class="hover:scale-110 hover:shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 dark:bg-gray-900 text-gray-900 dark:text-white bg-gray-50 shadow-md rounded-lg p-6 max-w-4xl w-full text-left border-l-4 border-blue-400 flex flex-col md:flex-row items-center gap-6">
   <img src="{{ url_for('static', filename='images/project/Netflix.png') }}" alt="Netflix Dashboard"
        class="h-60 w-full md:w-1/2 object-contain rounded" />
   <div class="md:w-1/2">
     <h3 class="text-xl font-bold text-blue-600 mb-2">Netflix Dashboard</h3>
     <p class="text-sm text-gray-500 mb-2">Role: Data Analyst</p>
-    <p class="text-gray-700 mb-2">
+    <p class="text-gray-700 dark:text-white mb-2">
       Processed and cleaned Netflix data using Tableau Prep. Developed an interactive dashboard with filters, calculated fields, and visualizations to reveal genre distribution, availability, and ratings trends.
     </p>
     <p class="text-sm text-blue-700 font-semibold">Tech Stack: Tableau, Tableau Prep</p>
   </div>
 </div>
+</a>
 
 
     <!-- Project 2: Customer Segmentation (Image Right) -->
-    
-    <div class="bg-gray-50 shadow-md rounded-lg p-6 max-w-4xl w-full text-left border-l-4 border-blue-400 flex flex-col md:flex-row-reverse items-center gap-6">
+    <a href="https://github.com/Krishna471/Cipher-School-Project" target="_main" class="block mb-12">
+    <div class="hover:scale-110 hover:shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 dark:bg-gray-900 text-gray-900 dark:text-white bg-gray-50 shadow-md rounded-lg p-6 max-w-4xl w-full text-left border-l-4 border-blue-400 flex flex-col md:flex-row-reverse items-center gap-6">
   <img src="{{ url_for('static', filename='images/project/cluster.png') }}" alt="Customer Segmentation"
        class="h-full w-full md:w-1/2 object-contain rounded" />
   <div class="md:w-1/2">
     <h3 class="text-xl font-bold text-blue-600 mb-2">Customer Segmentation using K-Means</h3>
-    <p class="text-sm text-gray-500 mb-2">Role: Data Scientist</p>
-    <p class="text-gray-700 mb-2">
+    <p class="text-sm text-gray-500 dark:text-white  mb-2">Role: Data Scientist</p>
+    <p class="text-gray-700 dark:text-white mb-2">
       Built a segmentation model with K-Means to identify unique customer groups. Cleaned and preprocessed data, used clustering and visualizations to understand behaviors and improve targeting strategies.
     </p>
     <p class="text-sm text-blue-700 font-semibold">Tech Stack: Python, Pandas, NumPy, Scikit-learn, Seaborn, Jupyter Notebook</p>
   </div>
 </div>
+</a>
 
 
     <!-- Project 3: Portfolio Website (Image Left) -->
-    
-    <div class="bg-gray-50 shadow-md rounded-lg p-6 max-w-4xl w-full text-left border-l-4 border-blue-400 flex flex-col md:flex-row items-center gap-6">
+    <a href="https://github.com/Krishna471/portfolio-website" target="_main" class="block mb-12">
+    <div class="hover:scale-110 hover:shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 dark:bg-gray-900 text-gray-900 dark:text-white bg-gray-50 shadow-md rounded-lg p-6 max-w-4xl w-full  border-l-4 border-blue-400 flex flex-col md:flex-row items-center gap-6">
   <img src="{{ url_for('static', filename='images/project/portfolio.png') }}" alt="Portfolio Website"
        class="h-full w-full md:w-1/2 object-contain rounded" />
   <div class="md:w-1/2">
     <h3 class="text-xl font-bold text-blue-600 mb-2">Portfolio Website</h3>
-    <p class="text-sm text-gray-500 mb-2">Role: Frontend Developer</p>
-    <p class="text-gray-700 mb-2">
+    <p class="text-sm text-gray-500 dark:text-white mb-2">Role: Frontend Developer</p>
+    <p class="text-gray-700 dark:text-white mb-2">
       Designed a clean and responsive portfolio using HTML and TailwindCSS. The site showcases my projects, certifications, and skills with smooth scrolling and interactivity.
     </p>
     <p class="text-sm text-blue-700 font-semibold">Tech Stack: HTML, TailwindCSS, JavaScript</p>
   </div>
-</div>
+  </div>
+  </a>
   </div>
 </section>
-
+<hr>
 
   <!-- Certifications Section -->
 <section id="certifications" class="snap-start min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-white scroll-mt-5">
   <h2 class="text-4xl font-bold text-blue-500 mb-8 text-center">Certifications</h2>
-  <p class="text-gray-700 max-w-3xl mb-10 text-center">
+  <p class="dark:text-white max-w-3xl mb-10 text-center">
     This section showcases my certifications in data science, data analytics, and cloud computing.
   </p>
 
@@ -198,19 +293,19 @@
     
     <!-- Left Arrow -->
     <button onclick="scrollCerts(-1)"
-      class="bg-white/30 backdrop-blur-md border border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg rounded-full w-14 h-9 flex items-center justify-center text-2xl leading-none hover:scale-110 hover:animate-pulse font-semibold">
+      class="hover:scale-105 hover:shadow-10xl hover:shadow-indigo-500/50 transition-all duration-300 dark:bg-gray-900 text-gray-900 dark:text-white bg-white/30 backdrop-blur-md border border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg rounded-full w-14 h-9 flex items-center justify-center text-2xl leading-none hover:scale-110 hover:animate-pulse font-semibold">
       ←
     </button>
 
     <!-- Scrollable Cards Wrapper -->
-    <div class="w-[1000px] overflow-hidden">
+    <div class=" w-[1000px] overflow-hidden">
       <div id="certScroll" class="flex gap-6 transition-transform duration-500 ease-in-out">
         
         <!-- Card 1 -->
-        <div class="w-[320px] h-[420px] bg-gray-50 border-t-2 border-b-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
+        <div class="rounded-lg dark:bg-gray-900 text-gray-900 dark:text-white w-[320px] h-[420px] bg-gray-50 border-t-2 border-b-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
           <h3 class="text-xl font-bold text-blue-600 mb-4">Cloud Computing – NPTEL</h3>
-          <img src="{{ url_for('static', filename='images/certificate/NPTEL.png') }}" alt="NPTEL" class="h-50 w-full object-contain mb-4 rounded" />
-          <ul class="text-gray-700 text-sm list-disc list-inside space-y-1">
+          <img src="{{ url_for('static', filename='images/certificate/NPTEL.png') }}" alt="NPTEL" class="h-50 w-full object-contain mb-4 rounded cursor-pointer" onclick="openFullScreen(this.src)"/>
+          <ul class="dark:text-white text-gray-700 text-sm list-disc list-inside space-y-1">
             <li>Virtualization & cloud layers (IaaS, PaaS)</li>
             <li>Deployment models & orchestration</li>
             <li>Cloud service characteristics & APIs</li>
@@ -219,10 +314,10 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="w-[320px] h-[420px] bg-gray-50 border-l-2 border-r-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
+        <div class="dark:bg-gray-900 text-gray-900 dark:text-white w-[320px] h-[420px] bg-gray-50 border-l-2 border-r-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
           <h3 class="text-xl font-bold text-blue-600 mb-4">Tableau – Coursera</h3>
-          <img src="{{ url_for('static', filename='images/certificate/Tableau.png') }}" alt="Tableau" class="h-50 w-full object-contain mb-4 rounded" />
-          <ul class="text-gray-700 text-sm list-disc list-inside space-y-1">
+          <img src="{{ url_for('static', filename='images/certificate/Tableau.png') }}" alt="Tableau" class="h-50 w-full object-contain mb-4 rounded cursor-pointer" onclick="openFullScreen(this.src)"/>
+          <ul class="dark:text-white text-gray-700 text-sm list-disc list-inside space-y-1">
             <li>Created dashboards & storyboards</li>
             <li>Used calculated fields & parameters</li>
             <li>Explored advanced filtering & joins</li>
@@ -231,10 +326,10 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="w-[320px] h-[420px] bg-gray-50 border-t-2 border-b-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
+        <div class="dark:bg-gray-900 text-gray-900 dark:text-white w-[320px] h-[420px] bg-gray-50 border-t-2 border-b-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
           <h3 class="text-xl font-bold text-blue-600 mb-4">R Programming – Coursera</h3>
-          <img src="{{ url_for('static', filename='images/certificate/R programming.png') }}" alt="R" class="h-50 w-full object-contain mb-4 rounded" />
-          <ul class="text-gray-700 text-sm list-disc list-inside space-y-1">
+          <img src="{{ url_for('static', filename='images/certificate/R programming.png') }}" alt="R" class="h-50 w-full object-contain mb-4 rounded cursor-pointer" onclick="openFullScreen(this.src)"/>
+          <ul class="dark:text-white text-gray-700 text-sm list-disc list-inside space-y-1">
             <li>Basics of R syntax & data structures</li>
             <li>Worked on control structures & loops</li>
             <li>Used dplyr, ggplot2 for analysis</li>
@@ -243,10 +338,10 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="w-[320px] h-[420px] bg-gray-50 border-l-2 border-r-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
+        <div class=" dark:bg-gray-900 text-gray-900 dark:text-white w-[320px] h-[420px] bg-gray-50 border-l-2 border-r-2 border-blue-400 shadow-md rounded-lg p-4 shrink-0">
           <h3 class="text-xl font-bold text-blue-600 mb-4">Python, DS & ML – Cipher School</h3>
-          <img src="{{ url_for('static', filename='images/certificate/cipher school.png') }}" alt="Cipher" class="h-50 w-full object-contain mb-4 rounded" />
-          <ul class="text-gray-700 text-sm list-disc list-inside space-y-1">
+          <img src="{{ url_for('static', filename='images/certificate/cipher school.png') }}" alt="Cipher" class="h-50 w-full object-contain mb-4 rounded cursor-pointer" onclick="openFullScreen(this.src)"/>
+          <ul class="dark:text-white text-gray-700 text-sm list-disc list-inside space-y-1">
             <li>Learned Python, NumPy & Pandas</li>
             <li>Built ML models with Scikit-learn</li>
             <li>Explored classification & clustering</li>
@@ -259,14 +354,13 @@
 
     <!-- Right Arrow -->
     <button onclick="scrollCerts(1)"
-      class="bg-white/30 backdrop-blur-md border border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg rounded-full w-14 h-9 flex items-center justify-center text-2xl leading-none hover:scale-110 hover:animate-pulse font-semibold">
+      class="hover:scale-105 hover:shadow-10xl hover:shadow-indigo-500/50 transition-all duration-300 dark:bg-gray-900 text-gray-900 dark:text-white bg-white/30 backdrop-blur-md border border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg rounded-full w-14 h-9 flex items-center justify-center text-2xl leading-none hover:scale-110 hover:animate-pulse font-semibold">
       →
     </button>
 
   </div> <!-- End Arrow + Cards Flex -->
-
 </section>
-
+<hr>
 
 
   <!-- Skills Section -->
@@ -278,7 +372,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/python.png') }}"
            alt="Python"
-           class="bg-white rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Python</span>
     </div>
 
@@ -286,7 +380,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/java.png') }}"
            alt="Java"
-           class="bg-white rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Java</span>
     </div>
 
@@ -294,7 +388,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/c.png') }}"
            alt="C"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">C</span>
     </div>
 
@@ -302,7 +396,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/c++.png') }}"
            alt="C++"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">C++</span>
     </div>
 
@@ -310,7 +404,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/kotlin.png') }}"
            alt="Kotlin"
-           class="bg-white rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Kotlin</span>
     </div>
 
@@ -318,7 +412,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/sql.png') }}"
            alt="SQL"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">SQL</span>
     </div>
 
@@ -326,7 +420,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/html.png') }}"
            alt="HTML"
-           class="bg-white rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">HTML</span>
     </div>
 
@@ -334,7 +428,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/tailwindcss.png') }}"
            alt="Tailwind CSS"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Tailwind CSS</span>
     </div>
 
@@ -342,7 +436,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/js.png') }}"
            alt="JavaScript"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">JavaScript</span>
     </div>
 
@@ -350,7 +444,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/tableau.png') }}"
            alt="Tableau"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Tableau</span>
     </div>
 
@@ -358,7 +452,7 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/github.png') }}"
            alt="Git"
-           class="bg-white rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Git</span>
     </div>
 
@@ -366,12 +460,13 @@
     <div class="flex flex-col items-center">
       <img src="{{ url_for('static', filename='images/skills/flask.png') }}"
            alt="Flask"
-           class="bg-white  rounded shadow hover:scale-105 transition w-28 h-28 object-contain">
+           class="bg-white  rounded shadow hover:scale-110 transition w-28 h-28 object-contain">
       <span class="mt-2 text-blue-700 font-semibold">Flask</span>
     </div>
 
   </div>
 </section>
+<hr>
 
 
   <!-- Education Section -->
@@ -380,33 +475,31 @@
     
 
       <!-- B.Tech -->
-      <div class="bg-white shadow-md rounded-lg p-6 mb-6 max-w-3xl w-full text-left border-l-4 border-r-4 border-blue-400">
+      <div class="hover:ring-4 hover:ring-indigo-400 transition duration-300 hover:scale-105 rounded-lg dark:bg-gray-900 text-gray-900 dark:text-white bg-white shadow-md rounded-lg p-6 mb-6 max-w-3xl w-full text-left border-l-4 border-r-4 border-blue-400">
         <h3 class="text-xl font-bold text-blue-600 mb-1">B.Tech – Computer Science & Engineering</h3>
-        <p class="text-gray-600">Lovely Professional University, Phagwara</p>
-        <p class="text-sm text-gray-500">2022 - Present</p>
-        <p class="mt-2 text-gray-700">CGPA: <span class="font-semibold">7.40 / 10</span></p>
+        <p class="dark:text-white text-gray-600">Lovely Professional University, Phagwara</p>
+        <p class="dark:text-white text-sm text-gray-500">2022 - Present</p>
+        <p class="dark:text-white mt-2 text-gray-700">CGPA: <span class="font-semibold">7.40 / 10</span></p>
       </div>
 
       <!-- Class 12 -->
-      <div class="bg-white shadow-md rounded-lg p-6 mb-6 max-w-3xl w-full text-left border-r-4 border-l-4 border-blue-400">
+      <div class="hover:ring-4 hover:ring-indigo-400 transition duration-300 hover:scale-105 transition dark:bg-gray-900 text-gray-900 dark:text-white bg-white shadow-md rounded-lg p-6 mb-6 max-w-3xl w-full text-left border-r-4 border-l-4 border-blue-400">
         <h3 class="text-xl font-bold text-blue-600 mb-1">Senior Secondary Examination (Class XII)</h3>
-        <p class="text-gray-600">Amar Jyoti Senior Secondary School, Amritsar</p>
-        <p class="text-sm text-gray-500">2021 - 2022</p>
-        <p class="mt-2 text-gray-700">Percentage: <span class="font-semibold">93.4%</span></p>
+        <p class="dark:text-white text-gray-600">Amar Jyoti Senior Secondary School, Amritsar</p>
+        <p class="dark:text-white text-sm text-gray-500">2021 - 2022</p>
+        <p class="dark:text-white mt-2 text-gray-700">Percentage: <span class="font-semibold">93.4%</span></p>
       </div>
 
       <!-- Class 10 -->
-      <div class="bg-white shadow-md rounded-lg p-6 mb-6 max-w-3xl w-full text-left border-l-4 border-r-4 border-blue-400">
+      <div class="hover:ring-4 hover:ring-indigo-400 transition duration-300 hover:scale-105 transition dark:bg-gray-900 text-gray-900 dark:text-white bg-white shadow-md rounded-lg p-6 mb-6 max-w-3xl w-full text-left border-l-4 border-r-4 border-blue-400">
         <h3 class="text-xl font-bold text-blue-600 mb-1">Secondary School Examination (Class X)</h3>
-        <p class="text-gray-600">Amar Jyoti Senior Secondary School, Amritsar</p>
-        <p class="text-sm text-gray-500">2020 - 2021</p>
-        <p class="mt-2 text-gray-700">Percentage: <span class="font-semibold">90%</span></p>
+        <p class="dark:text-white text-gray-600">Amar Jyoti Senior Secondary School, Amritsar</p>
+        <p class="dark:text-white text-sm text-gray-500">2020 - 2021</p>
+        <p class="dark:text-white mt-2 text-gray-700">Percentage: <span class="dark:text-white font-semibold">90%</span></p>
       </div>      
     </section>
   </main>
-  <br>
-  <br>
-  <br>
+  <hr>
 
   <!-- Footer -->
   <footer class="bg-gray-800 text-white py-4">
@@ -444,8 +537,6 @@
     </a>
   </div>
 </div>
- 
-
   </div>
 
   <!-- Bottom Note -->
@@ -453,11 +544,17 @@
     © 2025 Krishna Arora. All rights reserved.
   </div>
 </footer>
+
+<div id="fullscreenModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+  <span class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer" onclick="closeFullScreen()">&times;</span>
+  <img id="fullscreenImage" src="" class="max-h-[90vh] max-w-[90vw] rounded-lg shadow-lg" />
+</div>
 </body>
 
 <!-- 1. External Lottie script -->
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.min.js"></script>
+
 
 <!-- 2. Your custom JavaScript -->
 <script>
@@ -517,5 +614,53 @@ function scrollCerts(direction) {
     deleteSpeed: 50,
     nextStringDelay: 1500,
   }).go();
+
+  // for image enlarge of certificate
+  function openFullScreen(src) {
+    const modal = document.getElementById('fullscreenModal');
+    const img = document.getElementById('fullscreenImage');
+    modal.classList.remove('hidden');
+    img.src = src;
+  }
+
+  function closeFullScreen() {
+    document.getElementById('fullscreenModal').classList.add('hidden');
+  }
+
+  // Optional: Close when clicking outside the image
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById('fullscreenModal');
+    const img = document.getElementById('fullscreenImage');
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+
+//JavaScript for Icon Switching 🌙↔☀️
+
+  const toggleBtn = document.getElementById("toggleMode");
+  const modeIcon = document.getElementById("modeIcon");
+
+  function setIcon() {
+    if (document.documentElement.classList.contains("dark")) {
+      modeIcon.textContent = "🌙";  // Dark Mode Icon
+    } else {
+      modeIcon.textContent = "☀️";  // Light Mode Icon
+    }
+  }
+
+ toggleBtn.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+
+  // Also toggle light class on body
+  if (isDark) {
+    document.body.classList.remove("light");
+  } else {
+    document.body.classList.add("light");
+  }
+
+  setIcon();
+});
 </script>
 </html>
