@@ -5,7 +5,7 @@ A simple,responsive and modern **Portfolio Website** built with **HTML, Tailwind
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 📁 Project Folder Structure
-portfolio-website/
+```portfolio-website/
 │
 ├── static/                     # Static assets like CSS, JS, and images
 │   ├── static.css              # Main CSS file
@@ -22,7 +22,7 @@ portfolio-website/
 ├── app.py                      # Main Flask backend file
 ├── requirements.txt            # Python dependencies
 ├── README.md                   # Project documentation
-└── .gitignore                  # Files/folders to be ignored by Git
+└── .gitignore                  # Files/folders to be ignored by Git```
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
